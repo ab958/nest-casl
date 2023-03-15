@@ -16,12 +16,12 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document)
 
   let description = Object.values(SwaggerModule.createDocument(app,config).paths)
-  description.forEach((item: any) => {
-    item =  Object.values(item)
-    item.forEach(element => {
-      console.log('Description of Route is ','===> ',element.description)
-    });
-  }) 
+  // description.forEach((item: any) => {
+  //   item =  Object.values(item)
+  //   item.forEach(element => {
+  //     console.log('Description of Route is ','===> ',element.description)
+  //   });
+  // }) 
   await app.listen(3000);
 }
 bootstrap();

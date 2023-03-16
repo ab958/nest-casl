@@ -14,13 +14,12 @@ export class CaseController {
   @Get('resource')
   @CheckAbilities({ action: Action.Read, subject: Subject.Case})
   getHello(): string {
-    const user = currentuser;
     return this.appService.getHello();
   }
 
   @Delete(':id')
   @CheckAbilities({ action: Action.Delete, subject: Subject.Case})
   remove(@Param('id') id: string){
-    return 'deleted'
+    return this.appService.getHello();
   }
 }

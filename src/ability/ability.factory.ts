@@ -25,44 +25,48 @@ export const currentuser = {
   id: 1, 
   isAdmin: false, 
   permission: [
-    'read:contract',
-    'get:contract',
-    'read:case',
-    'get:case'
+    'read:contract:all',
+    'get:contract:all',
+    'read:case:all',
+    'get:case:all',
+    'delete:case:all'
   ]
 }
 
-const myCase = {
-  id: 'case123',
-  userId: 1
-};
+export const myCase = [
+  {
+  id: 'case1',
+  userId: 2
+  },{
+  id: 'case2',
+  userId: 2
+  }
+];
   
 export class User {
     id: number;
     isAdmin: boolean;
     permission: any[]
 }
-export type Subjects = InferSubjects<Subject | typeof Article>;
+export type Subjects = InferSubjects<Subject | typeof myCase>;
 
 export type AppAbility =  Ability<[Action, Subjects]>;
 
 @Injectable()
 export class AbilityFactory{
     defineAbility(user: User){
-        const { can, cannot, build } = new AbilityBuilder<AppAbility>(createMongoAbility)
+        const { can, cannot, build } = new AbilityBuilder<AppAbility>(createMongoAbility);
+
         if (user.isAdmin) {
             can(Action.Manage, Subject.all);
           } else {
             user.permission.forEach((items: string) => {
               const [ action, subject ]: [Action, Subject] = items.split(':') as [Action, Subject];
               can(action, subject);
-              // cannot(Action.Update, Subject.Case, {userId : {$ne : user.id}})
               // .because('you donot have access to this case')
             })
           }
           
-          // let a = can(Action.Update, Subject.Case, { userId: user.id });
-          // console.log(a,"lllll")
 
           return build({
             detectSubjectType: (item) =>

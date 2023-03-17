@@ -1,13 +1,13 @@
-import { Body, Controller, ForbiddenException, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, ForbiddenException, Get, Patch, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AbilityFactory, Action, currentuser, Subject, User } from './ability/ability.factory';
-import { AppService } from './app.service';
-import { ApiDescription } from './custom/discription';
-import { LoggingInterceptor } from './interceptor/logging.interceptor';
+import { AbilityFactory, Action, currentuser, Subject, User } from '../ability/ability.factory';
+import { AppService } from '../services/app.service';
+import { ApiDescription } from '../custom/discription';
+import { LoggingInterceptor } from '../interceptor/logging.interceptor';
 
 @ApiTags('Contract')
 @Controller('contract')
-export class AppController {
+export class ContractController {
   constructor(private readonly appService: AppService,
     private abilityFactory: AbilityFactory
     ) {}
@@ -33,9 +33,9 @@ export class AppController {
   //   return this.appService.getPic();
   // }
 
-  // @Post('something')
-  // @ApiDescription('abc')
-  // getHello1(): string {
-  //   return this.appService.getHello();
-  // }
+  @Delete('something')
+  @ApiDescription('abc')
+  getHello1(): string {
+    return this.appService.getHello();
+  }
 }

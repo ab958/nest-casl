@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { currentuser,AbilityFactory } from './ability/ability.factory';
+import { currentuser,AbilityFactory } from '../ability/ability.factory';
 
 
 @Injectable()

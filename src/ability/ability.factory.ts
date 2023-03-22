@@ -25,11 +25,11 @@ export const currentuser = {
   id: 1, 
   isAdmin: false, 
   permission: [
-    'read:contract:all',
-    'get:contract:all',
-    'read:case:all',
-    'get:case:all',
-    'delete:case:all'
+    // 'read:contract:all',
+    // 'get:contract:all',
+    // 'read:case:all',
+    // 'get:case:all',
+    // 'delete:case:own'
   ]
 }
 

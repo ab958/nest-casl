@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder} from '@nestjs/swagger'
+import { SwaggerService } from './services/swagger.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,9 +14,11 @@ async function bootstrap() {
   // .addTag('WAHAB')
   .build();
   const document = SwaggerModule.createDocument(app, config);
+  new SwaggerService('api', app, config).init();
   SwaggerModule.setup('api', app, document)
 
   let description = Object.values(SwaggerModule.createDocument(app,config).paths)
+  // console.log(document)
   // description.forEach((item: any) => {
   //   item =  Object.values(item)
   //   item.forEach(element => {

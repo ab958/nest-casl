@@ -1,0 +1,11 @@
+<%- include('partials/header.partial.ejs') -%>
+    <p>Hi <%=data.reviewTo%>,</p>
+    <br/>
+    <p>Congratulations!</p>
+    <p>You have received a review from <%=data.reviewFrom%>  </p>
+    <br/>
+    <p> The review includes the following details:</p>
+    <p>Rating: <strong><%= data.Rating %></strong></p>
+    <p>Review: <strong><%= data.Review %></strong></p>
+    <br/>
+<%- include('partials/footer.partial.ejs') -%>      

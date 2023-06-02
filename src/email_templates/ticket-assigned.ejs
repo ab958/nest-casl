@@ -1,0 +1,12 @@
+<%- include('partials/header.partial.ejs') -%>
+    <p>Hi <%= data.email %>,</p>
+    <br/>
+    <p>I wanted to let you know that a new ticket has been assigned to you. Here are the details:</p>
+    <br/>
+    <br/>
+    <p>Ticket Id: <%= data.ticketId %></p>
+    <p>Ticket Category: <%= data.category %></p>
+    <br/>
+    <p>Please log in to the system to access the ticket. </p>
+    <br/>
+<%- include('partials/footer.partial.ejs') -%>

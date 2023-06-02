@@ -9,9 +9,31 @@ import { APP_GUARD } from '@nestjs/core';
 import { AbilitiesGuard } from './ability/abilities.guard';
 import { SwaggerService } from './services/swagger.service';
 import { AdminController } from './controllers/admin.controller';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
+import { join } from 'path';
 
 @Module({
-  imports: [],
+  imports: [
+     MailerModule.forRoot({
+      transport: {
+        host: '',
+        secure: false,
+        auth: {
+          user: '',
+          pass: '',
+        },
+      },
+      defaults: {
+        from: `"${'No Reply'}" <${'noreply@mortgagebasket.co.uk'}>`,
+      },
+      template: {
+        dir: join(__dirname, 'email_templates'),
+        adapter: new EjsAdapter(),
+        options: {},
+      },
+    }),
+  ],
   controllers: [ContractController,CaseController,AdminController],
   providers: [AppService,AbilityFactory, {
     provide: APP_GUARD,

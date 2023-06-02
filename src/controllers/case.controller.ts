@@ -14,9 +14,9 @@ export class CaseController {
 
   @Get('resource')
   // @ApiDescription('get')
-  @CheckAbilities({ action: Action.Read, subject: Subject.Case})
-  getHello(): string {
-    return this.appService.getHello();
+  // @CheckAbilities({ action: Action.Read, subject: Subject.Case})
+  async getHello(): Promise<any> {
+    return await this.appService.sendEmail();
   }
 
   @Delete(':id')

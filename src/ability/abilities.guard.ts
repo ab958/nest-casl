@@ -16,44 +16,44 @@ export class AbilitiesGuard implements CanActivate {
     constructor(
         private reflector: Reflector,
         private caslAbilityFactory: AbilityFactory,
-    ){}
+    ) { }
 
-    async canActivate(context: ExecutionContext):  Promise<boolean>  {
+    async canActivate(context: ExecutionContext): Promise<boolean> {
 
         // { action: Action.Read, subject: Subject.Case}
-        const rules = 
+        const rules =
             this.reflector.get<RequiredRule[]>(CHECK_ABILITY, context.getHandler());
-        
-        if(rules){
+
+        if (rules) {
             const request = context.switchToHttp().getRequest();
-        const { id } = request.params; // here id is the path parameter
+            const { id } = request.params; // here id is the path parameter
 
-        const user = currentuser;
-        
-        let requestedCase = myCase.find(( item ) => item.id === id);
+            const user = currentuser;
 
-        let requestedrules = rules[0]?.action+ ':' + rules[0]?.subject;
-        const deleteCasePermission = user.permission.find(permission => permission.includes(requestedrules));
-        const possession = deleteCasePermission.split(':')[2]
+            let requestedCase = myCase.find((item) => item.id === id);
 
-        console.log(id,requestedCase,user,rules,possession)
+            let requestedrules = rules[0]?.action + ':' + rules[0]?.subject;
+            const deleteCasePermission = user.permission.find(permission => permission.includes(requestedrules));
+            const possession = deleteCasePermission.split(':')[2]
 
-        if (possession === 'own' && requestedCase.userId !== user.id) {
-            throw new ForbiddenException('you donot have permission to access this route')
-        }
+            console.log(id, requestedCase, user, rules, possession)
 
-        const ability = this.caslAbilityFactory.defineAbility(user)
-
-        try {
-            rules.forEach((rule) => 
-                ForbiddenError.from(ability).throwUnlessCan(rule.action,rule.subject)
-            )
-            return true
-        } catch (error) {
-            if( error instanceof ForbiddenError){
-                throw new ForbiddenException(error.message)
+            if (possession === 'own' && requestedCase.userId !== user.id) {
+                throw new ForbiddenException('you donot have permission to access this route')
             }
-        }
+
+            const ability = this.caslAbilityFactory.defineAbility(user)
+
+            try {
+                rules.forEach((rule) =>
+                    ForbiddenError.from(ability).throwUnlessCan(rule.action, rule.subject)
+                )
+                return true
+            } catch (error) {
+                if (error instanceof ForbiddenError) {
+                    throw new ForbiddenException(error.message)
+                }
+            }
         }
         return true
     }
